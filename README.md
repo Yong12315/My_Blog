@@ -1,2 +1,14 @@
-# FPGA_Blog
-Just for fun~
+# My Blog
+
+Just for Fun~
+
+你好，这里是我的博客仓库。  
+我是一名 FPGA 工程师，平时喜欢冥想、健身和滑雪。  
+这里会记录一些工作中的心得、技术笔记，还有一些慢慢整理出来的文章。
+
+---
+
+## 目录
+
+- [基于CORDIC优化的FPGA数字变频设计](./articles/基于CORDIC优化的FPGA数字变频设计.md)  
+  `2026-04-17` · `FPGA`
