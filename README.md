@@ -10,5 +10,5 @@ Just for Fun~
 
 ## 目录
 
-- [基于CORDIC优化的FPGA数字变频设计](./articles/基于CORDIC优化的FPGA数字变频设计.md)  
+- [基于CORDIC优化的FPGA数字变频设计](./FPGA/基于CORDIC优化的FPGA数字变频设计.md)  
   `2026-04-17` · `FPGA`
