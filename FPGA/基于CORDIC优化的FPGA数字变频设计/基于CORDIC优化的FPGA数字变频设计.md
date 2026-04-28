@@ -18,7 +18,7 @@
    y\left[n\right] = x[n]e^{j2π\frac{f_{c}}{f{_s}}n}
    $$
 
-其中，$f_{c}$ 表示混频本振频率，$f_{s}$ 表示输入信号的采样率。当 $f_{c}$为正时，输出频谱相对于输入频谱向高频方向平移；当 $f_{c}$为负时，输出频谱相对于输入频谱向低频方向平移。
+其中， $f_{c}$ 表示混频本振频率， $f_{s}$ 表示输入信号的采样率。当 $f_{c}$为正时，输出频谱相对于输入频谱向高频方向平移；当 $f_{c}$为负时，输出频谱相对于输入频谱向低频方向平移。
 
 ## 2 FPGA实现数字变频
 
@@ -66,7 +66,9 @@
 
 2. MATLAB 生成的测试信号为采样率 122.88 MHz 的 OFDM 调制复基带信号，其频谱主要分布在 -5 MHz 到 +5 MHz 范围内，可用于验证数字变频模块对复基带信号的频谱搬移效果。
 
-   ![OFDM_IQ_Spectrum](./Images/OFDM_IQ_Spectrum.png)
+   <p align="center">
+     <img src="./Images/OFDM_IQ_Spectrum.png" alt="IQ_Result_Spectrum" width="700">
+   </p>
 
 3. 在 Vivado 中运行仿真文件 [tb_Frequency_Shift.v](./Code/Vivado/Frequency_Shift/tb_Frequency_Shift.v)，仿真过程中，testbench 读取 IQ_Data.mem 中的 IQ 数据，并将其送入数字变频模块。本次仿真设置频移量为 +10 MHz，即通过 CORDIC 旋转运算，将输入 IQ 信号频谱整体向高频方向搬移。仿真结束后，模块输出的变频后 IQ 数据会保存到 [IQ_Result.txt](./Code/Vivado/Frequency_Shift/IQ_Result.txt)，用于后续 MATLAB 频谱分析。
 
