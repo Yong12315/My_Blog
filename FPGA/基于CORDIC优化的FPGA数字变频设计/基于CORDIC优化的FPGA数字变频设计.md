@@ -14,9 +14,9 @@
 
 数字变频的本质是通过输入信号 $x[n]$与复指数本振信号相乘，实现信号频谱的平移，其表达式为：
 
-$$
-y\left[n\right] = x[n]e^{j2π\frac{f_{c}}{f{s}}n}
-$$
+   $$
+   y\left[n\right] = x[n]e^{j2π\frac{f_{c}}{f{s}}n}
+   $$
 
 其中，$f_{c}$ 表示混频本振频率，$f_{s}$ 表示输入信号的采样率。当 $f_{c}$为正时，输出频谱相对于输入频谱向高频方向平移；当 $f_{c}$为负时，输出频谱相对于输入频谱向低频方向平移。
 
@@ -30,9 +30,9 @@ $$
 
 1. 根据混频频率 $f_c$ 和采样率 $f_s$，计算相邻采样点之间的相位增量：
 
-    $$
-    \Delta\phi = 2\pi \frac{f_c}{f_s}
-    $$
+   $$
+   \Delta\phi = 2\pi \frac{f_c}{f_s}
+   $$
 
 2. 对相位增量 $\Delta\phi$ 进行逐点累加，得到本振信号在各个采样时刻对应的相位值。
 
@@ -42,11 +42,11 @@ $$
 
 *累加并限制模块的中对相位进行折返处理：当累加结果大于* $π$*时减去* $2π$*，当累加结果小于* $-π$*时加上* $2π$*，从而始终将相位值限制在* $\left[-π,π\right]$*范围内。*
 
-![FPGA架构图](./Images/Figure_3.png)
+   ![FPGA架构图](./Images/Figure_3.png)
 
 ### 2.2 CORDIC IP配置
 
-![IP配置](./Images/Figure_4.png)
+   ![IP配置](./Images/Figure_4.png)
 
 - Functional Selection：选择 Rotate 模式，用于实现输入向量的旋转运算。
 - Architectural Configuration：选择 Parallel 并行架构，可实现每个时钟周期输出一个结果，适合高吞吐率应用场景。
@@ -62,16 +62,16 @@ $$
 
 1. 首先运行 MATLAB 脚本 [IQ_Generator.m](./Code/MATLAB/IQ_Generator.m)，生成用于仿真的 IQ 数据。生成后的数据会保存到 [IQ_Data.mem](./Code/MATLAB/IQ_Data.mem) 文件中，作为后续 FPGA 仿真的输入激励。
 
-    ![alt text](./Images/Figure_5.png)
+   ![Figure_5](./Images/Figure_5.png)
 
 2. MATLAB 生成的测试信号为采样率 122.88 MHz 的 OFDM 调制复基带信号，其频谱主要分布在 -5 MHz 到 +5 MHz 范围内，可用于验证数字变频模块对复基带信号的频谱搬移效果。
 
-    ![alt text](./Images/OFDM_IQ_Spectrum.png)
+   ![OFDM_IQ_Spectrum](./Images/OFDM_IQ_Spectrum.png)
 
 3. 在 Vivado 中运行仿真文件 [tb_Frequency_Shift.v](./Code/Vivado/Frequency_Shift/tb_Frequency_Shift.v)，仿真过程中，testbench 读取 IQ_Data.mem 中的 IQ 数据，并将其送入数字变频模块。本次仿真设置频移量为 +10 MHz，即通过 CORDIC 旋转运算，将输入 IQ 信号频谱整体向高频方向搬移。仿真结束后，模块输出的变频后 IQ 数据会保存到 [IQ_Result.txt](./Code/Vivado/Frequency_Shift/IQ_Result.txt)，用于后续 MATLAB 频谱分析。
 
-    ![alt text](./Images/Modelsim.png)
+   ![Modelsim](./Images/Modelsim.png)
 
 4. 使用 MATLAB 脚本[Plot_IQ_Spect.m](./Code/MATLAB/Plot_IQ_Spect.m)读取 IQ_Result.txt，并对变频后的 IQ 数据进行 FFT 分析。从频谱结果可以看出，输入信号频谱由原来的 -5 MHz ~ +5 MHz 整体搬移到约 5 MHz ~ 15 MHz，频移量与设定的 +10 MHz 一致，说明基于 CORDIC 的数字变频模块能够正确完成频谱搬移功能。
 
-    ![alt text](./Images/IQ_Result_Spectrum.png)
+   ![IQ_Result_Spectrum](./Images/IQ_Result_Spectrum.png)
