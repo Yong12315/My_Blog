@@ -15,7 +15,7 @@
 数字变频的本质是通过输入信号 $x[n]$与复指数本振信号相乘，实现信号频谱的平移，其表达式为：
 
    $$
-   y\left[n\right] = x[n]e^{j2π\frac{f_{c}}{f{s}}n}
+   y\left[n\right] = x[n]e^{j2π\frac{f_{c}}{f{_s}}n}
    $$
 
 其中，$f_{c}$ 表示混频本振频率，$f_{s}$ 表示输入信号的采样率。当 $f_{c}$为正时，输出频谱相对于输入频谱向高频方向平移；当 $f_{c}$为负时，输出频谱相对于输入频谱向低频方向平移。
@@ -74,4 +74,6 @@
 
 4. 使用 MATLAB 脚本[Plot_IQ_Spect.m](./Code/MATLAB/Plot_IQ_Spect.m)读取 IQ_Result.txt，并对变频后的 IQ 数据进行 FFT 分析。从频谱结果可以看出，输入信号频谱由原来的 -5 MHz ~ +5 MHz 整体搬移到约 5 MHz ~ 15 MHz，频移量与设定的 +10 MHz 一致，说明基于 CORDIC 的数字变频模块能够正确完成频谱搬移功能。
 
-   ![IQ_Result_Spectrum](./Images/IQ_Result_Spectrum.png)
+   <p align="center">
+     <img src="./Images/IQ_Result_Spectrum.png" alt="IQ_Result_Spectrum" width="700">
+   </p>
